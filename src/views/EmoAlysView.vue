@@ -2,7 +2,7 @@
 
 <template>
   <div class="emo-analysis">
-    <el-table :data="tableData" height="96%" style="width: 100%">
+    <el-table :data="tableData" height="96%" style="width: 100%" border="true">
       <el-table-column prop="date" label="用户名" width="180" />
       <el-table-column prop="name" label="评论" />
       <el-table-column prop="name" label="评论时间" />

@@ -43,7 +43,9 @@ import { House, ZoomIn, Filter, PieChart } from "@element-plus/icons-vue";
             <el-menu-item index="2-1" @click="$router.push('/emo_analysis')"
               >评论情感分析</el-menu-item
             >
-            <el-menu-item index="2-2">用户情感分析</el-menu-item>
+            <el-menu-item index="2-2" @click="$router.push('/user_analysis')"
+              >用户情感分析</el-menu-item
+            >
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
