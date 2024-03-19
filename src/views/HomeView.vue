@@ -1,5 +1,11 @@
 <script setup>
 import { House, ZoomIn, Filter, PieChart } from "@element-plus/icons-vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const loginOut = () => {
+  localStorage.clear();
+  router.push("/login");
+};
 </script>
 
 <template>
@@ -17,18 +23,13 @@ import { House, ZoomIn, Filter, PieChart } from "@element-plus/icons-vue";
             />
           </template>
 
-          <el-button @click="$router.push('/login')">退出登录</el-button>
+          <el-button @click="loginOut">退出登录</el-button>
         </el-popover>
       </div>
     </header>
     <main>
       <aside>
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-        >
+        <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-menu-item index="1" @click="$router.push('/index')">
             <template #title>
               <el-icon><House /></el-icon>

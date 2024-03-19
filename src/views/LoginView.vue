@@ -1,9 +1,43 @@
 <script setup>
 import { ref } from "vue";
 import { Lock, User } from "@element-plus/icons-vue";
+import request from "@/api/request";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
 const isRemenber = ref(true);
-const username = ref("");
+const sysUsername = ref("");
 const password = ref("");
+const router = useRouter();
+//登录
+const login = () => {
+  console.log(sysUsername.value, password.value);
+  request
+    .userLogin({
+      sysUsername: sysUsername.value,
+      password: password.value,
+    })
+    .then((res) => {
+      if (res.code === 200) {
+        ElMessage({
+          message: "登录成功",
+          type: "success",
+          duration: 1000,
+        });
+        //将token保存到浏览器
+        const { token, sysUsername } = res.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("sysUsername", sysUsername);
+        //跳转页面
+        router.push("/");
+      } else {
+        ElMessage({
+          message: res.msg,
+          type: "error",
+          duration: 1000,
+        });
+      }
+    });
+};
 </script>
 
 <template>
@@ -26,7 +60,7 @@ const password = ref("");
         </div>
         <div class="login-form">
           <el-input
-            v-model="username"
+            v-model="sysUsername"
             style="width: 240px"
             placeholder="请输入账号"
             :prefix-icon="User"
@@ -49,7 +83,7 @@ const password = ref("");
             />
             记住密码
           </span>
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
         </div>
       </div>
     </div>
