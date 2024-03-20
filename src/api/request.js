@@ -8,4 +8,8 @@ export default {
   getHotComment: async (data) => {
     return instance.post("/hotComment/getHotComment", data);
   },
+
+  getCommentByUser: async (data) => {
+    return instance.post("/userPost/getCommentByUser", data);
+  },
 };
