@@ -4,4 +4,8 @@ export default {
   userLogin: async (data) => {
     return instance.post("/sysUser/login", data);
   },
+
+  getHotComment: async (data) => {
+    return instance.post("/hotComment/getHotComment", data);
+  },
 };
