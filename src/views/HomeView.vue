@@ -62,7 +62,21 @@ const loginOut = () => {
               <el-icon><PieChart /></el-icon>
               <span>可视化展示</span>
             </template>
-            <el-menu-item index="3-1">用户推送筛选</el-menu-item>
+            <el-menu-item index="3-1" @click="$router.push('/piechart')"
+              >饼状图</el-menu-item
+            >
+            <el-menu-item index="3-1" @click="$router.push('/linechart')"
+              >折线图</el-menu-item
+            >
+            <el-menu-item index="3-1" @click="$router.push('/barchart')"
+              >柱状图</el-menu-item
+            >
+            <el-menu-item index="3-1" @click="$router.push('/hopperchart')"
+              >漏斗图</el-menu-item
+            >
+            <el-menu-item index="3-1" @click="$router.push('/leidachart')"
+              >雷达图</el-menu-item
+            >
             <el-menu-item index="3-2">热点事件筛选</el-menu-item>
           </el-sub-menu>
         </el-menu>

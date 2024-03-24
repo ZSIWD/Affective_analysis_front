@@ -12,4 +12,10 @@ export default {
   getCommentByUser: async (data) => {
     return instance.post("/userPost/getCommentByUser", data);
   },
+  getDepressionProp: async () => {
+    return instance.get("/hotComment/getDepressionProp");
+  },
+  getXinQi: async () => {
+    return instance.get("/hotComment/getXinQi");
+  },
 };
