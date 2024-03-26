@@ -22,6 +22,66 @@ function handleCurrentChange(toPageNum) {
 
 <template>
   <div class="emo-analysis">
+    <div class = "label-level">
+      <span>
+        <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: green;
+              border-radius: 50%;
+            "
+          ></div>
+          积极
+      </span>
+      <span>
+        <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: blue;
+              border-radius: 50%;
+            "
+          ></div>
+正常
+      </span>
+      <span>
+
+        <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: yellow;
+              border-radius: 50%;
+            "
+          ></div>
+          轻度
+      </span>
+      <span>
+
+        <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: #d38919;
+              border-radius: 50%;
+            "
+          ></div>
+          中度
+      </span>
+      <span>
+
+        <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: red;
+              border-radius: 50%;
+            "
+          ></div>
+          重度
+      </span>
+    </div>
     <el-table
       :data="tableData"
       height="98%"
@@ -106,6 +166,15 @@ function handleCurrentChange(toPageNum) {
   .el-pagination {
     margin-right: 40px;
     margin-bottom: 30px;
+  }
+  .label-level{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 95px;
+    width: 100%;
+    background-color: #f0eded;
+    margin-bottom: 5px;
   }
 }
 </style>

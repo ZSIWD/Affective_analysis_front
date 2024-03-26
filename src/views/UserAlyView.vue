@@ -16,13 +16,18 @@ onMounted(() => {
 const searchInput = ref("");
 const totalFeel = ref(0);
 function searchByUser() {
+  console.log(totalFeel.value);
   queryData.value.userName = searchInput.value;
+  queryData.value.page = 1;
+  queryData.value.size = 10000;
   request.getCommentByUser(queryData.value).then((res) => {
     tableData.value = res.data.records;
     isUserIn.value = true;
-    totalFeel.value = res.data.records.reduce((total, records) => {
-      total + records.label, 0;
-    });
+    for(const x of tableData.value){
+      if (x.label < 0){
+        totalFeel.value += x.label
+      }
+    }
   });
 }
 
@@ -31,6 +36,17 @@ function handleCurrentChange(toPageNum) {
   request.getCommentByUser(queryData.value).then((res) => {
     tableData.value = res.data.records;
   });
+}
+
+function getAll(){
+  queryData.value = {
+    page :1,
+    size:100
+  }
+  request.getCommentByUser(queryData.value).then((res) => {
+    tableData.value = res.data.records;
+  });
+  isUserIn.value = false;
 }
 </script>
 
@@ -42,13 +58,14 @@ function handleCurrentChange(toPageNum) {
         <el-input
           v-model="searchInput"
           style="width: 240px"
-          placeholder="Type something"
+          placeholder="请输入用户名"
           :prefix-icon="Search"
+          clearable
+          @clear="getAll"
         />
         <el-button type="primary" plain @click="searchByUser">搜索</el-button>
       </div>
       <div class="user-info" v-if="isUserIn">
-        <span>头像</span>
         <div>
           <span class="title">用户昵称</span>
           <span class="user-content">{{ searchInput }}</span>
@@ -57,10 +74,10 @@ function handleCurrentChange(toPageNum) {
           <span class="title">性别</span>
           <span class="user-content">{{ tableData[0].userSex }}</span>
         </div>
-        <!-- <div>
-          <span class="title">情感度</span>
+        <div>
+          <span class="title">抑郁度</span>
           <span class="user-content">{{ totalFeel }}</span>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="search-result">
@@ -71,9 +88,60 @@ function handleCurrentChange(toPageNum) {
           style="width: 100%"
           :border="true"
         >
+        <el-table-column prop="userName" label="评论" />
           <el-table-column prop="postMessage" label="评论" />
           <el-table-column prop="postTime" label="评论时间" />
-          <el-table-column prop="label" label="分析结果" />
+          <el-table-column prop="label" label="分析结果" width="180">
+        <template #default="scope">
+          <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: green;
+              border-radius: 50%;
+            "
+            v-if="scope.row.label == 1"
+          ></div>
+          <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: blue;
+              border-radius: 50%;
+            "
+            v-if="scope.row.label == 0"
+          ></div>
+          <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: yellow;
+              border-radius: 50%;
+            "
+            v-if="scope.row.label < 0 && scope.row.label >= -0.3"
+          ></div>
+
+          <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: #d38919;
+              border-radius: 50%;
+            "
+            v-else-if="scope.row.label < -0.3 && scope.row.label >= -0.7"
+          ></div>
+
+          <div
+            style="
+              height: 30px;
+              width: 30px;
+              background-color: red;
+              border-radius: 50%;
+            "
+            v-else-if="scope.row.label < -0.7 && scope.row.label >= -1"
+          ></div>
+        </template>
+      </el-table-column>
           <el-table-column prop="label" label="情感得分" />
         </el-table>
       </div>

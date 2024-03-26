@@ -4,12 +4,12 @@ import { onMounted } from "vue";
 import request from "@/api/request";
 onMounted(() => {
   var chartDom = document.getElementById("main");
-  var myChart = echarts.init(chartDom, "dark");
+  var myChart = echarts.init(chartDom);
   var option;
 
   option = {
     title: {
-      text: "Funnel",
+      text: "星期抑郁分析",
     },
     tooltip: {
       trigger: "item",

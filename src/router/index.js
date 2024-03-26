@@ -4,8 +4,9 @@ import LoginView from "../views/LoginView.vue";
 import IndexView from "../views/IndexView.vue";
 import UserAlyViewVue from "@/views/UserAlyView.vue";
 import EmoAnalysisView from "../views/EmoAlysView.vue";
-import Piechart from "@/components/Piechart.vue";
-import Linechart from "@/components/Linechart.vue";
+// import Piechart from "@/components/Piechart.vue";
+// import Linechart from "@/components/Linechart.vue";
+import PieLinechart from "@/components/PieLinechart.vue";
 import Barchart from "@/components/Barchart.vue";
 import Hopperchart from "@/components/Hopperchart.vue";
 import Leidachart from "@/components/Leidachart.vue";
@@ -34,15 +35,11 @@ const router = createRouter({
           component: UserAlyViewVue,
         },
         {
-          path: "/piechart",
-          name: "piechart",
-          component: Piechart,
+          path: "/pielinechart",
+          name: "pielinechart",
+          component: PieLinechart,
         },
-        {
-          path: "/linechart",
-          name: "linechart",
-          component: Linechart,
-        },
+      
         {
           path: "/barchart",
           name: "barchart",
