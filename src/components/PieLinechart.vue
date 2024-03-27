@@ -1,6 +1,7 @@
 <script setup>
 import echarts from "@/echarts";
-import { onMounted } from "vue";
+import { onMounted,ref } from "vue";
+import request from "@/api/request";
 onMounted(() => {
   var chartDom1 = document.getElementById("main1");
   var myChart1 = echarts.init(chartDom1);
@@ -48,18 +49,20 @@ onMounted(() => {
   var myChart = echarts.init(chartDom);
   var option;
 
-  const rawData = {
+  const rawData = ref({
     male: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90],
     female: [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290],
-  };
+  });
 
-  const totalMale = rawData.male.reduce((acc, cur) => acc + cur, 0);
-  const totalFemale = rawData.female.reduce((acc, cur) => acc + cur, 0);
+  // const totalMale = rawData.male.reduce((acc, cur) => acc + cur, 0);
+  // const totalFemale = rawData.female.reduce((acc, cur) => acc + cur, 0);
 
-  const data = {
-    male: rawData.male.map((value) => ((value / totalMale) * 100).toFixed(2)),
-    female: rawData.female.map((value) => ((value / totalFemale) * 100).toFixed(2)),
-  };
+  // const data = {
+  //   male: rawData.male.map((value) => ((value / totalMale) * 100).toFixed(2)),
+  //   female: rawData.female.map((value) => ((value / totalFemale) * 100).toFixed(2)),
+  // };
+
+  
 
   option = {
     title: {
@@ -97,19 +100,28 @@ onMounted(() => {
       {
         name: "男",
         type: "line",
-        stack: "Total",
-        data: data.male,
+        // stack: "Total",
+        data: rawData.value.male,
       },
       {
         name: "女",
         type: "line",
         stack: "Total",
-        data: data.female,
+        data: rawData.value.female,
       },
     ],
   };
 
-  option && myChart.setOption(option);
+  request.getLineData().then((res)=>{
+    console.log(res);
+    option.series[0].data = res.data.male;
+    option.series[1].data = res.data.female;
+    console.log(option);
+    option && myChart.setOption(option);
+    
+  })
+  // console.log(rawData.value);
+  // option && myChart.setOption(option);
 });
 </script>
 

@@ -109,7 +109,7 @@ function getAll(){
               background-color: blue;
               border-radius: 50%;
             "
-            v-if="scope.row.label == 0"
+            v-if="scope.row.label <= 0 && scope.row.label>= -0.5 "
           ></div>
           <div
             style="
@@ -118,7 +118,7 @@ function getAll(){
               background-color: yellow;
               border-radius: 50%;
             "
-            v-if="scope.row.label < 0 && scope.row.label >= -0.3"
+            v-if="scope.row.label < -0.5 && scope.row.label >= -0.8"
           ></div>
 
           <div
@@ -128,7 +128,7 @@ function getAll(){
               background-color: #d38919;
               border-radius: 50%;
             "
-            v-else-if="scope.row.label < -0.3 && scope.row.label >= -0.7"
+            v-else-if="scope.row.label < -0.8 && scope.row.label >= -0.95"
           ></div>
 
           <div
@@ -138,7 +138,7 @@ function getAll(){
               background-color: red;
               border-radius: 50%;
             "
-            v-else-if="scope.row.label < -0.7 && scope.row.label >= -1"
+            v-else-if="scope.row.label < -0.95 && scope.row.label >= -1"
           ></div>
         </template>
       </el-table-column>

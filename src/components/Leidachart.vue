@@ -118,15 +118,12 @@ onMounted(() => {
 });
 const id = ref(0)
 function updateData() {
-  
-  if(localStorage.getItem("isUpdate") === "true"){
-    
+  const u = useCounterStore()
+  if(btText.value === "已更新"){
     ElMessage.warning("数据已更新，请与30分钟后尝试")
     return;
   }
-  localStorage.setItem("isUpdate","true")
-  
-  // localStorage.setItem("isFirst","true");
+  u.isUpdate = true;
   btText.value = "已更新"
   id.value = id.value + 1;
 
@@ -164,6 +161,13 @@ function updateData() {
     console.log(res);
   });
 }
+
+onMounted(()=>{
+  const u = useCounterStore();
+  if (u.isUpdate === true){
+    btText.value = "已更新"
+  }
+})
 
 </script>
 

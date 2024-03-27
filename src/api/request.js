@@ -20,5 +20,8 @@ export default {
   },
   getDePercentage:async (id)=>{
     return instance.get(`/hotComment/getDePercentage/${id}`)
+  },
+  getLineData:async ()=>{
+    return instance.get("/userPost/getLineData")
   }
 };
