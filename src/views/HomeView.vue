@@ -54,7 +54,7 @@ const loginOut = () => {
               <span>热搜筛选</span>
             </template>
             <el-menu-item index="3-1">用户推送筛选</el-menu-item>
-            <el-menu-item index="3-2">热点事件筛选</el-menu-item>
+            <el-menu-item index="3-2" @click="$router.push('/hotsearch')">热点事件筛选</el-menu-item>
           </el-sub-menu>
 
           <el-sub-menu index="4">

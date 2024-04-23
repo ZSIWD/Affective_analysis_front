@@ -23,5 +23,14 @@ export default {
   },
   getLineData:async ()=>{
     return instance.get("/userPost/getLineData")
-  }
+  },
+  getHotSearch:async (data)=>{
+    return instance.post("/hotSearch/getHotSearch",data)
+  },
+  getHotSearchDetails:async (id,data)=>{
+    return instance.post(`/hotSearch/getHotSearchDetails/${id}`,data)
+  },
+  repealHotSearch:async(id)=>{
+    return instance.put(`/hotSearch/repealHotSearch/${id}`)
+  },
 };
