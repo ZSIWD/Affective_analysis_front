@@ -64,6 +64,7 @@ onMounted(() => {
 
   
 
+  
   option = {
     title: {
       text: "男女月份抑郁分析图",

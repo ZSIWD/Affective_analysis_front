@@ -11,6 +11,7 @@ import Barchart from "@/components/Barchart.vue";
 import Hopperchart from "@/components/Hopperchart.vue";
 import Leidachart from "@/components/Leidachart.vue";
 import HotSearch from "@/views/HotSearch.vue";
+import HotSearchChart from "@/components/HotSearchChart.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -60,6 +61,10 @@ const router = createRouter({
           path: "/hotsearch",
           name: "hotsearch",
           component: HotSearch,
+        },{
+          path:"/hotSearchChart",
+          name:"hotSearchChart",
+          component:HotSearchChart
         }
       ],
     },

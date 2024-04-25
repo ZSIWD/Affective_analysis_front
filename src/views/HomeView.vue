@@ -53,7 +53,7 @@ const loginOut = () => {
               <el-icon><Filter /></el-icon>
               <span>热搜筛选</span>
             </template>
-            <el-menu-item index="3-1">用户推送筛选</el-menu-item>
+            <!-- <el-menu-item index="3-1">用户推送筛选</el-menu-item> -->
             <el-menu-item index="3-2" @click="$router.push('/hotsearch')">热点事件筛选</el-menu-item>
           </el-sub-menu>
 
@@ -73,6 +73,9 @@ const loginOut = () => {
             >
             <el-menu-item index="3-4" @click="$router.push('/leidachart')"
               >抑郁类型占比分析</el-menu-item
+            >
+            <el-menu-item index="3-4" @click="$router.push('/hotSearchChart')"
+              >热搜抑郁排行分析</el-menu-item
             >
           </el-sub-menu>
         </el-menu>

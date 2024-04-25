@@ -1,6 +1,14 @@
 <template>
     <div id="hot-search">
-        
+      <div class="search">
+        <el-input
+      v-model="username"
+      style="width: 240px"
+      placeholder="请输入用户名"
+      :prefix-icon="Search"
+    />
+    <el-button type="primary" plain @click="searchByUser">搜索</el-button>
+      </div>
     <el-table :data="tableData" border style="width: 100%" height="98%">
         <el-table-column type="index" width="53" label="排名"/>
         <el-table-column prop="hotNewsTitle" label="热搜标题" width="350" />
@@ -29,7 +37,6 @@
       :total="1000"
       @current-change="handleCurrentChange"
     />
-
     <el-dialog v-model="dialogTableVisible" title="热搜详情" width="1000" >
     <el-table :data="gridData" height="80%" stripe>
       <el-table-column property="userName" label="用户名" width="120" />
@@ -58,6 +65,7 @@
 import { ref ,onMounted} from 'vue'
 import request from '@/api/request';
 import { ElMessage } from "element-plus";
+import { Search } from '@element-plus/icons-vue';
 const data = {
   page:1,
   size:50
@@ -70,7 +78,7 @@ onMounted(()=>{
       item.npercentage = item.npercentage + "%";
       item.ppercentage = item.ppercentage + "%";
     });
-    tableData.value = res.data;
+    tableData.value = res.data; 
   })
 })
 
@@ -105,6 +113,19 @@ function handleCurrentChanged(toPage){
   })
 }
 
+
+//根据用户搜索
+const username = ref('')
+function searchByUser(){
+  request.getHotSearchByUser(username.value).then((res)=>{
+    console.log(res.data);
+    res.data.forEach((item) => {
+      item.npercentage = item.npercentage + "%";
+      item.ppercentage = item.ppercentage + "%";
+    });
+    tableData.value = res.data;
+  })
+}
 
 /**
  * 撤销操作
@@ -151,5 +172,15 @@ const handleRepeal = (row)=>{
 }
 .dialog-footer{
   margin-left: 60%;
+}
+.search{
+  display: flex;
+  width: 400px;
+  
+  margin-right: calc(100% - 420px);
+  margin-top: 10px;
+  .el-input{
+    margin-right: 10px;
+  }
 }
 </style>

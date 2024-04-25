@@ -33,4 +33,10 @@ export default {
   repealHotSearch:async(id)=>{
     return instance.put(`/hotSearch/repealHotSearch/${id}`)
   },
+  getHotSearchByUser:async(data)=>{
+    return instance.get(`/hotSearch/getHotSearchByUser?username=${data}`)
+  },
+  getHotSearchChart:async()=>{
+    return instance.get("/hotSearch/getHotSearchChart")
+  }
 };
