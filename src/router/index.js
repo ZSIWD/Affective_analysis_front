@@ -12,6 +12,7 @@ import Hopperchart from "@/components/Hopperchart.vue";
 import Leidachart from "@/components/Leidachart.vue";
 import HotSearch from "@/views/HotSearch.vue";
 import HotSearchChart from "@/components/HotSearchChart.vue";
+import RegisterView from "../views/RegisterView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -73,13 +74,25 @@ const router = createRouter({
       name: "login",
       component: LoginView,
     },
+    {
+      path:"/register",
+      name:"register",
+      component:RegisterView
+
+    }
   ],
 });
-router.beforeEach((to, from, next) => {
-  if (!localStorage.getItem("token") && to.path !== "/login") {
-    next("/login");
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+  // if(from.path==="/login"&&to.path ==="/register"){
+  //   next();
+  // }
+  // if(to.path==="/register"&&from.path ==="/login"){
+  //   next();
+  // }
+//    if (!localStorage.getItem("token") && to.path !== "/login " ) {
+//     next("/login");
+//   } else {
+//     next();
+//   }
+// });
 export default router;

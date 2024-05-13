@@ -2,6 +2,7 @@
 import { Search } from "@element-plus/icons-vue";
 import { ref, onMounted } from "vue";
 import request from "@/api/request";
+import { ElMessage } from "element-plus";
 const tableData = ref([]);
 const isUserIn = ref(false);
 const queryData = ref({
@@ -21,6 +22,10 @@ function searchByUser() {
   queryData.value.page = 1;
   queryData.value.size = 10000;
   request.getCommentByUser(queryData.value).then((res) => {
+    if(res.data.records.length == 0){
+      ElMessage.warning("该用户不存在");
+      return;
+    }
     tableData.value = res.data.records;
     isUserIn.value = true;
     for(const x of tableData.value){
@@ -88,7 +93,7 @@ function getAll(){
           style="width: 100%"
           :border="true"
         >
-        <el-table-column prop="userName" label="评论" />
+        <el-table-column prop="userName" label="用户名" />
           <el-table-column prop="postMessage" label="评论" />
           <el-table-column prop="postTime" label="评论时间" />
           <el-table-column prop="label" label="分析结果" width="180">

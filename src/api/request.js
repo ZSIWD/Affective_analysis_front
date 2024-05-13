@@ -38,5 +38,12 @@ export default {
   },
   getHotSearchChart:async()=>{
     return instance.get("/hotSearch/getHotSearchChart")
+  },
+
+  register:async(data)=>{
+    return instance.post("/sysUser/register",data)
+  },
+  getDeepHotComment:async(data)=>{
+    return instance.post("/hotComment/getDeepHotComment",data)
   }
 };

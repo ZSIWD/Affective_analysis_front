@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from "vue";
 import request from "@/api/request";
 const tableData = ref([]);
+const isOrdered = ref(false);
 const pageInfo = ref({
   page: 1,
   size: 100,
@@ -14,9 +15,23 @@ onMounted(() => {
 
 function handleCurrentChange(toPageNum) {
   pageInfo.value.page = toPageNum;
-  request.getHotComment(pageInfo.value).then((res) => {
+  if (!isOrdered.value) {
+    request.getHotComment(pageInfo.value).then((res) => {
     tableData.value = res.data;
   });
+  }else{
+    request.getDeepHotComment(pageInfo.value).then((res)=>{
+    tableData.value = res.data;
+  })
+  }
+  
+}
+
+function getDeepLabel(){
+  request.getDeepHotComment(pageInfo.value).then((res)=>{
+    tableData.value = res.data;
+  })
+  isOrdered.value = true;
 }
 </script>
 
@@ -72,6 +87,7 @@ function handleCurrentChange(toPageNum) {
       <span>
 
         <div
+        @click="getDeepLabel"
             style="
               height: 30px;
               width: 30px;

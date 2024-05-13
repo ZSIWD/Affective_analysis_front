@@ -4,39 +4,36 @@ import { Lock, User } from "@element-plus/icons-vue";
 import request from "@/api/request";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
-const isRemenber = ref(true);
 const sysUsername = ref("");
 const password = ref("");
+const confirmPasswod = ref("");
 const router = useRouter();
 //登录
-const login = () => {
+const register = () => {
   console.log(sysUsername.value, password.value);
-  request
-    .userLogin({
-      sysUsername: sysUsername.value,
-      password: password.value,
-    })
-    .then((res) => {
-      if (res.code === 200) {
-        ElMessage({
-          message: "登录成功",
-          type: "success",
-          duration: 1000,
-        });
-        //将token保存到浏览器
-        const { token, sysUsername } = res.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("sysUsername", sysUsername);
-        //跳转页面
-        router.push("/");
-      } else {
-        ElMessage({
-          message: res.msg,
-          type: "error",
-          duration: 1000,
-        });
-      }
-    });
+  if(password.value !== confirmPasswod.value){
+    ElMessage.error("两次密码不一致");
+    return;
+  }
+  //判断用户是否存在
+  
+  //密码相同
+  const data = {
+    sysUsername:sysUsername.value,
+    password:password.value
+  }
+  //注册
+  request.register(data).then((res)=>{
+    if(res.code===200){
+      ElMessage.success("注册成功")
+      router.push("/login");
+    }
+    else{
+      ElMessage.warning("账号已经存在");
+    }
+  })
+
+  
 };
 
 
@@ -57,7 +54,7 @@ const login = () => {
     <div class="login-right">
       <div class="login-right-form">
         <div class="login-text">
-          <h1>登录</h1>
+          <h1>注册</h1>
           <p>使用您的内部账号登录分析系统</p>
         </div>
         <div class="login-form">
@@ -74,23 +71,15 @@ const login = () => {
             placeholder="请输入密码"
             :prefix-icon="Lock"
           />
-          <span class="remenber">
-            <span>
-              <el-switch
-              v-model="isRemenber"
-              class="ml-2"
-              style="
-                --el-switch-on-color: #13ce66;
-                --el-switch-off-color: #5a5e63;
-              "
-            />
-            记住密码
-            </span>
-
-
-            <router-link to="/register">注册</router-link>
-          </span>
-          <el-button type="primary" @click="login">登录</el-button>
+          <el-input
+            v-model="confirmPasswod"
+            style="width: 240px"
+            type="password"
+            placeholder="请确认密码"
+            :prefix-icon="Lock"
+          />
+          
+          <el-button type="primary" @click="register">注册</el-button>
         </div>
       </div>
     </div>
